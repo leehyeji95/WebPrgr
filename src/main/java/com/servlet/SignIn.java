@@ -1,25 +1,26 @@
 package com.servlet;
 
 import java.io.IOException;
-import java.io.PrintWriter;
+import java.sql.ResultSet;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 /**
- * Servlet implementation class DeleteBoard
+ * Servlet implementation class SignIn
  */
-@WebServlet("/delete")
-public class DeleteBoard extends HttpServlet {
+@WebServlet("/signIn")
+public class SignIn extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public DeleteBoard() {
+    public SignIn() {
         super();
         // TODO Auto-generated constructor stub
     }
@@ -31,21 +32,21 @@ public class DeleteBoard extends HttpServlet {
 		// TODO Auto-generated method stub
 		//response.getWriter().append("Served at: ").append(request.getContextPath());
 		response.setContentType("text/html; charset=UTF-8");
-		PrintWriter out = response.getWriter();
-		//System.out.println("BoardId : "+request.getParameter("bId"));
+		String memId = request.getParameter("mem_id");
+		String memPw = request.getParameter("mem_pw");
 		
-		int bId = Integer.parseInt(request.getParameter("bId"));
-		BoardDAO dao = new BoardDAO();
-		int result = dao.delete(bId);
-		
-		if(result == 1) {
-			out.print("<script>alert('∞‘Ω√±€¿Ã ªË¡¶µ«æ˙Ω¿¥œ¥Ÿ')</script>");
-			response.sendRedirect("list");
-			out.flush();
+		MemberDAO dao = new MemberDAO();
+		MemberDTO mem = dao.getMember(memId);
+		if(!mem.memPw.equals(memPw)) {
+			System.out.println("ÎπÑÎ≤à Î∂àÏùºÏπò");
+			response.sendRedirect("SignInForm.jsp");
 		}else {
-			out.print("<script>alert('¥ŸΩ√ Ω√µµ«œººø‰')</script>");
-			out.flush();
+			// SessionÏóê Ï†ÄÏû•
+			HttpSession session = request.getSession();
+			session.setAttribute("mem_id", memId);
+			response.sendRedirect("BoardList.jsp");
 		}
+		
 	}
 
 	/**

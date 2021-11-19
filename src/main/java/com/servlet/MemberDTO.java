@@ -5,10 +5,26 @@ import java.util.Date;
 public class MemberDTO {
 	String memId;
 	String memPw;
-	String nickName;
+	String name;
+	String email;
 	String addr;
-	String mbti;
+	String mdn;
 	Date joinDate;
+	Date uDate;
+	
+	public MemberDTO() {
+		
+	}
+	
+	public MemberDTO(String memId, String memPw, String name, String email, String mdn, String addr) {
+		this.memId = memId;
+		this.memPw = memPw;
+		this.name = name;
+		this.email = email;
+		this.mdn = mdn;
+		this.addr = addr;
+	}
+	
 	public String getMemId() {
 		return memId;
 	}
@@ -21,11 +37,17 @@ public class MemberDTO {
 	public void setMemPw(String memPw) {
 		this.memPw = memPw;
 	}
-	public String getNickName() {
-		return nickName;
+	public String getName() {
+		return name;
 	}
-	public void setNickName(String nickName) {
-		this.nickName = nickName;
+	public void setName(String name) {
+		this.name = name;
+	}
+	public String getEmail() {
+		return email;
+	}
+	public void setEmail(String email) {
+		this.email = email;
 	}
 	public String getAddr() {
 		return addr;
@@ -33,10 +55,11 @@ public class MemberDTO {
 	public void setAddr(String addr) {
 		this.addr = addr;
 	}
-	public String getMbti() {
-		return mbti;
+	public String getMdn() {
+		return mdn;
 	}
-	public void setMbti(String mbti) {
-		this.mbti = mbti;
+	public void setMdn(String mdn) {
+		this.mdn = mdn;
 	}
 }
+
